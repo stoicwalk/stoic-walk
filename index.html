@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stoic Walk · Rome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --stone: #1C1A17;
+    --marble: #F7F4EE;
+    --gold: #9B7D3A;
+    --gold-light: #C4A35A;
+    --gold-pale: #F0E8D4;
+    --warm-gray: #6B6560;
+    --mid: #3A3630;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--stone);
+    color: var(--marble);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* LANGUAGE SWITCHER */
+  .lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 28px;
+    background: rgba(28, 26, 23, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(155, 125, 58, 0.2);
+    gap: 8px;
+  }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid rgba(155, 125, 58, 0.4);
+    color: var(--gold-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    padding: 5px 14px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .lang-btn:hover, .lang-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--marble);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 80%, rgba(155, 125, 58, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(155, 125, 58, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    margin-bottom: 36px;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: clamp(52px, 10vw, 110px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--marble);
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: clamp(18px, 3vw, 26px);
+    font-style: italic;
+    color: var(--gold-light);
+    margin-bottom: 48px;
+    font-weight: 400;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+
+  .hero-meta span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--warm-gray);
+    letter-spacing: 0.04em;
+  }
+
+  .hero-meta span strong {
+    color: var(--marble);
+    font-weight: 500;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--marble);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 16px 40px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--gold-light); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--warm-gray);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 32px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--marble);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  .body-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(247, 244, 238, 0.75);
+    margin-bottom: 20px;
+    max-width: 65ch;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 80px;
+    opacity: 0.5;
+  }
+
+  /* QUOTE */
+  .pull-quote {
+    border-left: 2px solid var(--gold);
+    padding: 4px 0 4px 32px;
+    margin: 48px 0;
+  }
+  .pull-quote p {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-style: italic;
+    color: var(--marble);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .pull-quote cite {
+    font-size: 13px;
+    color: var(--gold-light);
+    font-style: normal;
+    letter-spacing: 0.04em;
+  }
+
+  /* STOPS */
+  .stops {
+    padding: 80px 32px;
+    background: rgba(247, 244, 238, 0.03);
+    border-top: 1px solid rgba(155, 125, 58, 0.15);
+    border-bottom: 1px solid rgba(155, 125, 58, 0.15);
+  }
+  .stops-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stops-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .stop-card {
+    padding: 40px 36px;
+    background: rgba(247, 244, 238, 0.04);
+    border: 1px solid rgba(155, 125, 58, 0.12);
+    transition: background 0.2s;
+  }
+  .stop-card:hover { background: rgba(247, 244, 238, 0.07); }
+  .stop-number {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 48px;
+    color: rgba(155, 125, 58, 0.25);
+    line-height: 1;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .stop-name {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 22px;
+    color: var(--marble);
+    margin-bottom: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .stop-theme {
+    font-size: 12px;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .stop-desc {
+    font-size: 14px;
+    color: rgba(247, 244, 238, 0.6);
+    line-height: 1.6;
+  }
+
+  /* MASTERS */
+  .masters {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 100px 32px;
+  }
+  .master-list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .master {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(155, 125, 58, 0.12);
+    align-items: start;
+  }
+  .master:first-child { border-top: 1px solid rgba(155, 125, 58, 0.12); }
+  .master-name {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 24px;
+    color: var(--marble);
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .master-dates {
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+  .master-desc {
+    font-size: 15px;
+    color: rgba(247, 244, 238, 0.7);
+    line-height: 1.75;
+  }
+
+  /* PRICE */
+  .price-section {
+    padding: 80px 32px;
+    background: rgba(155, 125, 58, 0.06);
+    border-top: 1px solid rgba(155, 125, 58, 0.15);
+    border-bottom: 1px solid rgba(155, 125, 58, 0.15);
+  }
+  .price-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .price-box {
+    padding: 40px;
+    border: 1px solid rgba(155, 125, 58, 0.3);
+    background: rgba(247, 244, 238, 0.03);
+  }
+  .price-amount {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 72px;
+    color: var(--gold-light);
+    line-height: 1;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .price-unit {
+    font-size: 14px;
+    color: var(--warm-gray);
+    margin-bottom: 28px;
+  }
+  .price-details {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .price-details li {
+    font-size: 14px;
+    color: rgba(247, 244, 238, 0.7);
+    padding-left: 20px;
+    position: relative;
+  }
+  .price-details li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+  .price-info h3 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 28px;
+    color: var(--marble);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  .price-info p {
+    font-size: 15px;
+    color: rgba(247, 244, 238, 0.65);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  /* CONTACT */
+  .contact {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 100px 32px;
+    text-align: center;
+  }
+  .contact h2 { margin-bottom: 20px; }
+  .contact .body-text { margin: 0 auto 48px; text-align: center; }
+
+  .contact-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-ghost {
+    display: inline-block;
+    border: 1px solid rgba(155, 125, 58, 0.5);
+    color: var(--gold-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    padding: 14px 32px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover {
+    background: rgba(155, 125, 58, 0.1);
+    border-color: var(--gold-light);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(155, 125, 58, 0.15);
+    padding: 32px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--warm-gray);
+    letter-spacing: 0.04em;
+  }
+
+  /* LANGUAGE CONTENT */
+  .lang-content { display: none; }
+  .lang-content.active { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .stops-grid { grid-template-columns: 1fr; }
+    .master { grid-template-columns: 1fr; gap: 12px; }
+    .price-inner { grid-template-columns: 1fr; gap: 40px; }
+    section { padding: 72px 24px; }
+    .stops, .price-section { padding: 72px 24px; }
+    .contact { padding: 72px 24px; }
+    .masters { padding: 72px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE BAR -->
+<nav class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('it')">IT</button>
+  <button class="lang-btn" onclick="setLang('fr')">FR</button>
+</nav>
+
+<!-- ==================== ENGLISH ==================== -->
+<div id="lang-en" class="lang-content active">
+
+  <section class="hero">
+    <p class="hero-label">Rome · Philosophy · Walking</p>
+    <h1 class="hero-title">The Stoic<br>Walk</h1>
+    <p class="hero-subtitle">Philosophy in the heart of Ancient Rome</p>
+    <div class="hero-meta">
+      <span><strong>2 hours</strong></span>
+      <span><strong>Max 5 people</strong></span>
+      <span><strong>€45</strong> per person</span>
+      <span>Led by a <strong>philosopher</strong></span>
+    </div>
+    <a href="#contact-en" class="cta-btn">Book a walk</a>
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-label">About the tour</p>
+    <h2>Not history.<br>A way of living.</h2>
+    <p class="body-text">Rome is where Stoic philosophy stopped being theory and became an art of living — a search for the good life. We walk together from the Portico d'Ottavia to the Capitoline Hill, through the same streets where Marcus Aurelius, Seneca and Epictetus asked the questions that still matter today.</p>
+    <p class="body-text">This is not a lecture. Along the way, we practise — small exercises drawn from the Meditations and Seneca's Letters that help you think differently about stress, emotions, and what you can actually control.</p>
+    <div class="pull-quote">
+      <p>"You have power over your mind, not outside events. Realise this, and you will find strength."</p>
+      <cite>— Marcus Aurelius, Meditations</cite>
+    </div>
+    <p class="body-text">For those who want to bring home something more than a photograph.</p>
+  </section>
+
+  <div class="stops">
+    <div class="stops-inner">
+      <p class="section-label">The route</p>
+      <h2>Four stops,<br>two thousand years.</h2>
+      <div class="stops-grid">
+        <div class="stop-card">
+          <div class="stop-number">I</div>
+          <div class="stop-name">Portico d'Ottavia</div>
+          <div class="stop-theme">Where it all began</div>
+          <div class="stop-desc">Zeno of Citium, 300 BC, a shipwreck, and a philosophy born under a porch. The origin of Stoicism — and the dichotomy of control.</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">II</div>
+          <div class="stop-name">Temple of Apollo</div>
+          <div class="stop-theme">Time and fate</div>
+          <div class="stop-desc">Seneca's radical obsession with time. "Everything belongs to others — time alone is ours." What are you postponing?</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">III</div>
+          <div class="stop-name">Theatre of Marcellus</div>
+          <div class="stop-theme">The mask and the role</div>
+          <div class="stop-desc">The Latin word persona means theatre mask. Epictetus on the roles we play — and the difference between playing them and being them.</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">IV</div>
+          <div class="stop-name">Capitoline Hill</div>
+          <div class="stop-theme">The inner citadel</div>
+          <div class="stop-desc">Marcus Aurelius governed the world and wrote notes to himself at night to stay human. The Meditations and the fortress within.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masters">
+    <p class="section-label">The philosophers</p>
+    <h2>Three voices,<br>one question.</h2>
+    <div class="master-list">
+      <div class="master">
+        <div>
+          <div class="master-name">Epictetus</div>
+          <div class="master-dates">c. 50 – 135 AD</div>
+        </div>
+        <p class="master-desc">Born a slave in Hierapolis, freed after Nero's death. He had no physical freedom and no material possessions — and taught emperors how to be free. His Enchiridion is one of the most direct manuals for living ever written.</p>
+      </div>
+      <div class="master">
+        <div>
+          <div class="master-name">Seneca</div>
+          <div class="master-dates">c. 4 BC – 65 AD</div>
+        </div>
+        <p class="master-desc">One of the richest men in Rome, advisor to Nero, accused of hypocrisy. He never denied it: he said he was still learning. Ordered to take his own life, he did so calmly — dictating letters until the very last moment.</p>
+      </div>
+      <div class="master">
+        <div>
+          <div class="master-name">Marcus Aurelius</div>
+          <div class="master-dates">121 – 180 AD</div>
+        </div>
+        <p class="master-desc">Emperor of Rome at the height of its power. His Meditations were never meant to be published — they are private notes, a man reminding himself every night to stay humble, patient, and just. The most powerful man in the world, writing to himself.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-section">
+    <div class="price-inner">
+      <div class="price-box">
+        <div class="price-amount">€45</div>
+        <div class="price-unit">per person</div>
+        <ul class="price-details">
+          <li>2 hours walking tour</li>
+          <li>Maximum 5 participants</li>
+          <li>Led by a philosopher</li>
+          <li>Practical Stoic exercises included</li>
+          <li>Available in English, Italian, French</li>
+        </ul>
+      </div>
+      <div class="price-info">
+        <h3>Small groups.<br>Deep conversation.</h3>
+        <p>The limit of five people is not a constraint — it is the product. Philosophy needs space to breathe, and conversations that go somewhere.</p>
+        <p>Tours run on request. Write to book a date, or ask a question about the tour.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact" id="contact-en">
+    <p class="section-label">Book</p>
+    <h2>Ready to walk?</h2>
+    <p class="body-text">Write a message to book a date or ask anything about the tour. I reply within 24 hours.</p>
+    <div class="contact-actions">
+      <a href="https://wa.me/393481000850?text=Hi%2C%20I%27d%20like%20to%20book%20a%20Stoic%20Walk%20in%20Rome." class="cta-btn">📱 WhatsApp</a>
+      <a href="mailto:radustoicwalk@gmail.com" class="btn-ghost">Send an email</a>
+    </div>
+  </div>
+
+</div><!-- end EN -->
+
+<!-- ==================== ITALIAN ==================== -->
+<div id="lang-it" class="lang-content">
+
+  <section class="hero">
+    <p class="hero-label">Roma · Filosofia · Passeggiata</p>
+    <h1 class="hero-title">La Passeggiata<br>Stoica</h1>
+    <p class="hero-subtitle">Filosofia nel cuore dell'antica Roma</p>
+    <div class="hero-meta">
+      <span><strong>2 ore</strong></span>
+      <span><strong>Max 5 persone</strong></span>
+      <span><strong>€45</strong> a persona</span>
+      <span>Con un <strong>filosofo</strong></span>
+    </div>
+    <a href="#contact-it" class="cta-btn">Prenota una passeggiata</a>
+    <div class="scroll-hint">scorri</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-label">Il tour</p>
+    <h2>Non storia.<br>Un modo di vivere.</h2>
+    <p class="body-text">Roma è il luogo dove la filosofia stoica ha smesso di essere teoria ed è diventata arte del vivere alla ricerca della felicità. Camminiamo insieme dal Portico d'Ottavia al Campidoglio, attraverso le stesse strade dove Marco Aurelio, Seneca ed Epitteto si facevano le domande che contano ancora oggi.</p>
+    <p class="body-text">Non è una lezione. Durante il percorso pratichiamo — piccoli esercizi tratti dalle Meditazioni e dalle Lettere di Seneca per pensare diversamente allo stress, alle emozioni e a ciò che possiamo davvero controllare.</p>
+    <div class="pull-quote">
+      <p>«Hai potere sulla tua mente, non sugli eventi esterni. Renditi conto di questo, e troverai la forza.»</p>
+      <cite>— Marco Aurelio, Meditazioni</cite>
+    </div>
+    <p class="body-text">Per chi vuole portare a casa qualcosa di più di una fotografia.</p>
+  </section>
+
+  <div class="stops">
+    <div class="stops-inner">
+      <p class="section-label">Il percorso</p>
+      <h2>Quattro tappe,<br>duemila anni.</h2>
+      <div class="stops-grid">
+        <div class="stop-card">
+          <div class="stop-number">I</div>
+          <div class="stop-name">Portico d'Ottavia</div>
+          <div class="stop-theme">Dove tutto è cominciato</div>
+          <div class="stop-desc">Zenone di Cizio, 300 a.C., un naufragio, e una filosofia nata sotto un portico. L'origine dello stoicismo — e la dicotomia del controllo.</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">II</div>
+          <div class="stop-name">Tempio di Apollo</div>
+          <div class="stop-theme">Il tempo e il destino</div>
+          <div class="stop-desc">L'ossessione radicale di Seneca per il tempo. «Tutto appartiene agli altri — solo il tempo è nostro.» Cosa stai rimandando?</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">III</div>
+          <div class="stop-name">Teatro di Marcello</div>
+          <div class="stop-theme">La maschera e il ruolo</div>
+          <div class="stop-desc">La parola latina persona significa maschera da teatro. Epitteto sui ruoli che recitiamo — e la differenza tra recitarli ed essere.</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">IV</div>
+          <div class="stop-name">Campidoglio</div>
+          <div class="stop-theme">La cittadella interiore</div>
+          <div class="stop-desc">Marco Aurelio governava il mondo e di notte scriveva a sé stesso per restare umano. Le Meditazioni e la fortezza interiore.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masters">
+    <p class="section-label">I filosofi</p>
+    <h2>Tre voci,<br>una domanda.</h2>
+    <div class="master-list">
+      <div class="master">
+        <div>
+          <div class="master-name">Epitteto</div>
+          <div class="master-dates">c. 50 – 135 d.C.</div>
+        </div>
+        <p class="master-desc">Nato schiavo a Ierapoli, liberato dopo la morte di Nerone. Non aveva libertà fisica né beni materiali — e insegnava agli imperatori come essere liberi. Il suo Enchiridion è uno dei manuali di vita più diretti mai scritti.</p>
+      </div>
+      <div class="master">
+        <div>
+          <div class="master-name">Seneca</div>
+          <div class="master-dates">c. 4 a.C. – 65 d.C.</div>
+        </div>
+        <p class="master-desc">Uno degli uomini più ricchi di Roma, consigliere di Nerone, accusato di ipocrisia. Non lo negava mai: diceva che stava ancora imparando. Condannato a morte, lo fece con calma — dettando lettere fino all'ultimo momento.</p>
+      </div>
+      <div class="master">
+        <div>
+          <div class="master-name">Marco Aurelio</div>
+          <div class="master-dates">121 – 180 d.C.</div>
+        </div>
+        <p class="master-desc">Imperatore di Roma al culmine del suo potere. Le sue Meditazioni non erano destinate alla pubblicazione — sono appunti privati, un uomo che si ricorda ogni notte di restare umile, paziente e giusto. L'uomo più potente del mondo, che scriveva a sé stesso.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-section">
+    <div class="price-inner">
+      <div class="price-box">
+        <div class="price-amount">€45</div>
+        <div class="price-unit">a persona</div>
+        <ul class="price-details">
+          <li>2 ore di tour a piedi</li>
+          <li>Massimo 5 partecipanti</li>
+          <li>Condotto da un filosofo</li>
+          <li>Esercizi stoici pratici inclusi</li>
+          <li>Disponibile in italiano, inglese, francese</li>
+        </ul>
+      </div>
+      <div class="price-info">
+        <h3>Piccoli gruppi.<br>Conversazioni vere.</h3>
+        <p>Il limite di cinque persone non è un vincolo — è il prodotto. La filosofia ha bisogno di spazio, e di conversazioni che arrivano da qualche parte.</p>
+        <p>I tour si organizzano su richiesta. Scrivi per prenotare una data o per qualsiasi domanda.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact" id="contact-it">
+    <p class="section-label">Prenota</p>
+    <h2>Pronto a camminare?</h2>
+    <p class="body-text">Scrivi un messaggio per prenotare una data o per qualsiasi domanda sul tour. Rispondo entro 24 ore.</p>
+    <div class="contact-actions">
+      <a href="https://wa.me/393481000850?text=Ciao%2C%20vorrei%20prenotare%20la%20Passeggiata%20Stoica%20a%20Roma." class="cta-btn">📱 WhatsApp</a>
+      <a href="mailto:radustoicwalk@gmail.com" class="btn-ghost">Invia un'email</a>
+    </div>
+  </div>
+
+</div><!-- end IT -->
+
+<!-- ==================== FRENCH ==================== -->
+<div id="lang-fr" class="lang-content">
+
+  <section class="hero">
+    <p class="hero-label">Rome · Philosophie · Promenade</p>
+    <h1 class="hero-title">La Promenade<br>Stoïcienne</h1>
+    <p class="hero-subtitle">La philosophie au cœur de la Rome antique</p>
+    <div class="hero-meta">
+      <span><strong>2 heures</strong></span>
+      <span><strong>Max 5 personnes</strong></span>
+      <span><strong>€45</strong> par personne</span>
+      <span>Guidé par un <strong>philosophe</strong></span>
+    </div>
+    <a href="#contact-fr" class="cta-btn">Réserver une promenade</a>
+    <div class="scroll-hint">défiler</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-label">La visite</p>
+    <h2>Pas de l'histoire.<br>Un art de vivre.</h2>
+    <p class="body-text">Rome est l'endroit où la philosophie stoïcienne a cessé d'être une théorie pour devenir un art de vivre — une recherche du bonheur. Nous marchons ensemble du Portique d'Octavie jusqu'au Capitole, à travers les mêmes rues où Marc Aurèle, Sénèque et Épictète se posaient les questions qui comptent encore aujourd'hui.</p>
+    <p class="body-text">Ce n'est pas une conférence. En chemin, nous pratiquons — de petits exercices tirés des Méditations et des Lettres de Sénèque pour penser autrement le stress, les émotions et ce que nous pouvons réellement contrôler.</p>
+    <div class="pull-quote">
+      <p>«Vous avez le pouvoir sur votre esprit, pas sur les événements extérieurs. Réalisez cela, et vous trouverez la force.»</p>
+      <cite>— Marc Aurèle, Méditations</cite>
+    </div>
+    <p class="body-text">Pour ceux qui veulent rapporter autre chose qu'une photographie.</p>
+  </section>
+
+  <div class="stops">
+    <div class="stops-inner">
+      <p class="section-label">Le parcours</p>
+      <h2>Quatre étapes,<br>deux mille ans.</h2>
+      <div class="stops-grid">
+        <div class="stop-card">
+          <div class="stop-number">I</div>
+          <div class="stop-name">Portique d'Octavie</div>
+          <div class="stop-theme">Là où tout a commencé</div>
+          <div class="stop-desc">Zénon de Kition, 300 av. J.-C., un naufrage, et une philosophie née sous un portique. L'origine du stoïcisme — et la dichotomie du contrôle.</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">II</div>
+          <div class="stop-name">Temple d'Apollon</div>
+          <div class="stop-theme">Le temps et le destin</div>
+          <div class="stop-desc">L'obsession radicale de Sénèque pour le temps. «Tout appartient aux autres — le temps seul est à nous.» Qu'est-ce que vous remettez à plus tard?</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">III</div>
+          <div class="stop-name">Théâtre de Marcellus</div>
+          <div class="stop-theme">Le masque et le rôle</div>
+          <div class="stop-desc">Le mot latin persona signifie masque de théâtre. Épictète sur les rôles que nous jouons — et la différence entre les jouer et les être.</div>
+        </div>
+        <div class="stop-card">
+          <div class="stop-number">IV</div>
+          <div class="stop-name">Colline du Capitole</div>
+          <div class="stop-theme">La citadelle intérieure</div>
+          <div class="stop-desc">Marc Aurèle gouvernait le monde et s'écrivait la nuit pour rester humain. Les Méditations et la forteresse intérieure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masters">
+    <p class="section-label">Les philosophes</p>
+    <h2>Trois voix,<br>une seule question.</h2>
+    <div class="master-list">
+      <div class="master">
+        <div>
+          <div class="master-name">Épictète</div>
+          <div class="master-dates">c. 50 – 135 ap. J.-C.</div>
+        </div>
+        <p class="master-desc">Né esclave à Hiérapolis, affranchi après la mort de Néron. Il n'avait ni liberté physique ni biens matériels — et enseignait aux empereurs comment être libres. Son Enchiridion est l'un des manuels de vie les plus directs jamais écrits.</p>
+      </div>
+      <div class="master">
+        <div>
+          <div class="master-name">Sénèque</div>
+          <div class="master-dates">c. 4 av. J.-C. – 65 ap. J.-C.</div>
+        </div>
+        <p class="master-desc">L'un des hommes les plus riches de Rome, conseiller de Néron, accusé d'hypocrisie. Il ne le niait jamais: il disait qu'il apprenait encore. Condamné à mort, il s'exécuta calmement — dictant des lettres jusqu'au dernier moment.</p>
+      </div>
+      <div class="master">
+        <div>
+          <div class="master-name">Marc Aurèle</div>
+          <div class="master-dates">121 – 180 ap. J.-C.</div>
+        </div>
+        <p class="master-desc">Empereur de Rome à l'apogée de sa puissance. Ses Méditations n'étaient pas destinées à être publiées — ce sont des notes privées, un homme se rappelant chaque nuit de rester humble, patient et juste. L'homme le plus puissant du monde, s'écrivant à lui-même.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-section">
+    <div class="price-inner">
+      <div class="price-box">
+        <div class="price-amount">€45</div>
+        <div class="price-unit">par personne</div>
+        <ul class="price-details">
+          <li>2 heures de visite à pied</li>
+          <li>Maximum 5 participants</li>
+          <li>Guidé par un philosophe</li>
+          <li>Exercices stoïciens pratiques inclus</li>
+          <li>Disponible en français, anglais, italien</li>
+        </ul>
+      </div>
+      <div class="price-info">
+        <h3>Petits groupes.<br>Vraies conversations.</h3>
+        <p>La limite de cinq personnes n'est pas une contrainte — c'est le produit. La philosophie a besoin d'espace, et de conversations qui mènent quelque part.</p>
+        <p>Les visites sont organisées sur demande. Écrivez pour réserver une date ou pour toute question.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact" id="contact-fr">
+    <p class="section-label">Réserver</p>
+    <h2>Prêt à marcher?</h2>
+    <p class="body-text">Envoyez un message pour réserver une date ou pour toute question sur la visite. Je réponds dans les 24 heures.</p>
+    <div class="contact-actions">
+      <a href="https://wa.me/393481000850?text=Bonjour%2C%20je%20voudrais%20r%C3%A9server%20une%20Promenade%20Sto%C3%AFcienne%20%C3%A0%20Rome." class="cta-btn">📱 WhatsApp</a>
+      <a href="mailto:radustoicwalk@gmail.com" class="btn-ghost">Envoyer un email</a>
+    </div>
+  </div>
+
+</div><!-- end FR -->
+
+<footer>
+  <span id="footer-text">The Stoic Walk · Rome · Philosophy walking tour</span>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  event.target.classList.add('active');
+  document.documentElement.lang = lang;
+  const footers = {
+    en: 'The Stoic Walk · Rome · Philosophy walking tour',
+    it: 'La Passeggiata Stoica · Roma · Tour filosofico a piedi',
+    fr: 'La Promenade Stoïcienne · Rome · Visite philosophique à pied'
+  };
+  document.getElementById('footer-text').textContent = footers[lang];
+}
+</script>
+
+</body>
+</html>
